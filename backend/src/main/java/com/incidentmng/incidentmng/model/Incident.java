@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 @Table(name = "incident")
@@ -37,16 +38,21 @@ public class Incident {
     @NotNull
     private String priority;
 
+    @Column(name = "date")
+    @NotNull
+    private Date date;
+
     public Incident() {
     }
 
-    public Incident(long id, String serviceName, String category, String description, Integer status, String priority) {
+    public Incident(long id, String serviceName, String category, String description, Integer status, String priority, Date date) {
         this.id = id;
         this.serviceName = serviceName;
         this.category = category;
         this.description = description;
         this.status = status;
         this.priority = priority;
+        this.date = date;
     }
 
     public long getId() {
@@ -95,5 +101,13 @@ public class Incident {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
