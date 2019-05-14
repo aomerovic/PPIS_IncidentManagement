@@ -16,43 +16,51 @@ public class Incident {
     @SequenceGenerator(name = "incident_seq", sequenceName = "incident_seq", allocationSize = 1)
     private long id;
 
-    @Column(name = "service_name")
+    @ManyToOne
+    @JoinColumn(name="service_id", referencedColumnName="id")
     @NotNull
-    private String serviceName;
+    private Services service;
 
-    @Column(name = "category")
+    @ManyToOne
+    @JoinColumn(name="category_id", referencedColumnName="id")
     @NotNull
-    private String category;
+    private Category category;
 
     @Column(name = "description")
     @NotNull
     private String description;
 
-    @Column(name = "status")
+    @ManyToOne
+    @JoinColumn(name="priority_id", referencedColumnName="id")
+    @NotNull
+    private Priority priority;
+
+    @Column(name = "report_date")
+    @NotNull
+    private Date report_date;
+
+    @ManyToOne
+    @JoinColumn(name="user_id", referencedColumnName="id")
+    @NotNull
+    private User user;
+
+    @Column(name = "escalated")
     @NotNull
     @Min(value = 0, message = "Value has to be 0 or 1")
     @Max(value = 1, message = "Value has to be 0 or 1")
-    private Integer status;
-
-    @Column(name = "priority")
-    @NotNull
-    private String priority;
-
-    @Column(name = "date")
-    @NotNull
-    private Date date;
+    private Integer escalated;
 
     public Incident() {
     }
 
-    public Incident(long id, String serviceName, String category, String description, Integer status, String priority, Date date) {
-        this.id = id;
-        this.serviceName = serviceName;
+    public Incident(@NotNull Services service, @NotNull Category category, @NotNull String description, @NotNull Priority priority, @NotNull Date report_date, @NotNull User user, @NotNull @Min(value = 0, message = "Value has to be 0 or 1") @Max(value = 1, message = "Value has to be 0 or 1") Integer escalated) {
+        this.service = service;
         this.category = category;
         this.description = description;
-        this.status = status;
         this.priority = priority;
-        this.date = date;
+        this.report_date = report_date;
+        this.user = user;
+        this.escalated = escalated;
     }
 
     public long getId() {
@@ -63,19 +71,19 @@ public class Incident {
         this.id = id;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public Services getService() {
+        return service;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setService(Services service) {
+        this.service = service;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -87,27 +95,35 @@ public class Incident {
         this.description = description;
     }
 
-    public String getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Date getReport_date() {
+        return report_date;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setReport_date(Date report_date) {
+        this.report_date = report_date;
     }
 
-    public Date getDate() {
-        return date;
+    public User getUser() {
+        return user;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Integer getEscalated() {
+        return escalated;
+    }
+
+    public void setEscalated(Integer escalated) {
+        this.escalated = escalated;
     }
 }
