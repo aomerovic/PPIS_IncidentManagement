@@ -1,5 +1,7 @@
 package com.incidentmng.incidentmng.service;
 
+import com.incidentmng.incidentmng.model.Role;
+import com.incidentmng.incidentmng.model.Services;
 import com.incidentmng.incidentmng.model.User;
 import com.incidentmng.incidentmng.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +47,11 @@ public class UserServiceImpl implements UserService {
     public User getUser(String username, String pass){
         Optional<User> u = userRepository.getUser(username, pass);
         return u.get();
+    }
+
+    @Override
+    public String getRola(long id) {
+        String r = userRepository.getRola(id);
+        return r;
     }
 }

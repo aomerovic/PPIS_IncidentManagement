@@ -1,5 +1,7 @@
 package com.incidentmng.incidentmng.service;
 
+import com.incidentmng.incidentmng.model.Role;
+import com.incidentmng.incidentmng.model.Services;
 import com.incidentmng.incidentmng.model.User;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +19,7 @@ public interface UserService {
     Long deleteUserById(long id);
 
     User getUser(String username, String Pass);
+
+    String getRola(long id);
+
 }
