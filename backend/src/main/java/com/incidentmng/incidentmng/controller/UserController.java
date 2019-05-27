@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/korisnik")
 public class UserController {
 
     private UserService userService;
@@ -57,6 +61,15 @@ public class UserController {
         try {
             userService.deleteUserById(id);
             return ResponseEntity.status(HttpStatus.OK).body(new JSONResponse("User successfully deleted. "));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
+        }
+    }
+
+    @RequestMapping(method=RequestMethod.OPTIONS)
+    public ResponseEntity getUser(@RequestPart("username") String username, @RequestPart("password") String pass) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(userService.getUser(username, pass));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
         }

@@ -40,4 +40,10 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
         return id;
     }
+
+    @Override
+    public User getUser(String username, String pass){
+        Optional<User> u = userRepository.getUser(username, pass);
+        return u.get();
+    }
 }

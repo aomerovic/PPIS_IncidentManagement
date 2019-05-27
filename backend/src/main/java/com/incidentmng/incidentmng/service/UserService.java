@@ -15,4 +15,6 @@ public interface UserService {
     ArrayList<User> getAllUsers();
 
     Long deleteUserById(long id);
+
+    User getUser(String username, String Pass);
 }
