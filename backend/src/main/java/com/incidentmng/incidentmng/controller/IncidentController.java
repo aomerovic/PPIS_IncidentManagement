@@ -32,7 +32,7 @@ public class IncidentController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET,  value = "/{id}")
+    @RequestMapping(method = RequestMethod.GET,  value = "/getincident/{id}")
     public ResponseEntity getIncidentById(@PathVariable Long id) {
         try {
             Optional<Incident> incident = incidentService.getIncidentById(id);

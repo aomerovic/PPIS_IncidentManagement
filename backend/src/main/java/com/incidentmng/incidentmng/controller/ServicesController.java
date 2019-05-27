@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/services")
+@RequestMapping("/usluge")
 public class ServicesController {
 
     private ServicesService servicesService;
