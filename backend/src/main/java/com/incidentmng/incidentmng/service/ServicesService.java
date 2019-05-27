@@ -16,4 +16,6 @@ public interface ServicesService {
     ArrayList<Services> getAllServices();
 
     Long deleteServicesById(long id);
+
+    ArrayList<Services> getServicesFromUser(long id);
 }

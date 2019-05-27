@@ -40,4 +40,9 @@ public class ServicesServiceImpl implements ServicesService {
         serviceRepository.deleteById(id);
         return id;
     }
+
+    @Override
+    public ArrayList<Services> getServicesFromUser(long id) {
+        return serviceRepository.getServices(id);
+    }
 }

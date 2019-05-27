@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/usluge")
@@ -57,6 +61,15 @@ public class ServicesController {
         try {
             servicesService.deleteServicesById(id);
             return ResponseEntity.status(HttpStatus.OK).body(new JSONResponse("Service successfully deleted. "));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
+        }
+    }
+
+    @RequestMapping(value="/korisnikusluge/{id}", method=RequestMethod.GET)
+    public ResponseEntity requestMethodName(@PathVariable Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(servicesService.getServicesFromUser(id));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
         }
