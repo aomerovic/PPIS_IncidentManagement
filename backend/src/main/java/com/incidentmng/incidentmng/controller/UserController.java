@@ -83,5 +83,13 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
         }
     }
+    @RequestMapping(value="/korisnikid/{username}", method=RequestMethod.GET)
+    public ResponseEntity getUserId(@PathVariable("username") String username) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(userService.getUserId(username));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
+        }
+    }
     
 }

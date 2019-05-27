@@ -22,4 +22,6 @@ public interface UserService {
 
     String getRola(long id);
 
+    String getUserId(String username);
+
 }

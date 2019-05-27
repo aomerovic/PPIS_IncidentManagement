@@ -54,4 +54,11 @@ public class UserServiceImpl implements UserService {
         String r = userRepository.getRola(id);
         return r;
     }
+
+    @Override
+    public String getUserId(String username){
+        Long l = userRepository.getUserId(username);
+        return l.toString();
+    }
+
 }
