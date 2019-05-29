@@ -1,0 +1,69 @@
+
+.naslov{
+    size:3em;
+    padding-top: 0.6cm;
+    padding-bottom: 0.7cm;
+    margin: 0cm;
+    background-image:linear-gradient(to right, #498fff,white) ;
+    color: antiquewhite;
+    font-weight: bold;
+    font-size: 2em;
+    margin-top: 0.3cm;
+    text-align: left;
+    width: 100%;
+    padding-left: 10%;
+    
+}
+
+.HomePage{
+    height: 100%;
+    
+}
+
+.detaljno{
+    position: relative;
+  
+    width: 80%;
+    float: left;
+    padding-left: 7%;
+    text-align: left;
+    font-size: 17px;
+    margin-top: 50px;
+    display: block;
+}
+
+.cijenaopis{
+
+    margin-top:30px;
+    color: #3d7de6;
+    font-weight: 600;
+    margin-left: 10px;
+    font-size: 20px;
+   
+}
+
+.prijaviodjavi{
+    background-image:linear-gradient( to right, #498fff,#afceff) ;
+    color:white;
+    font-size: 16px;
+    font-weight: bold;
+    border: 0;
+    border-radius: 10px;
+    padding: 0.5em;
+    float: left;
+    margin-top:0.5em;
+    
+}
+.prijaviodjavi:hover{
+    background-image:linear-gradient( to right, #1963da,#5e9cff)
+}
+
+.prijaviodjavi:active{
+    background-image:linear-gradient( to right, #f0f0f0,#8cb2f0);
+    border: 2px solid #1963da;
+    color: #1963da
+}
+
+
+
+

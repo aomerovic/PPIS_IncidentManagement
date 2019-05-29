@@ -1,0 +1,76 @@
+
+.naslov{
+    size:3em;
+    padding-top: 15px;
+    padding-bottom: 12px;
+    margin: 0cm;
+    background-image:linear-gradient(to right, #498fff,white) ;
+    color: antiquewhite;
+    font-weight: bold;
+    font-size: 2em;
+    margin-top: 0cm;
+    text-align: left;
+    width: 100%;
+    padding-left: 5%;
+}
+
+
+
+
+.HomePage{
+    height: 100%;
+    
+}
+
+.body{
+    width: 100%;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+}
+
+.odjavi{
+    background-image:linear-gradient( to right, #498fff,#afceff) ;
+    color:white;
+    font-size: 15px;
+    border: 0;
+    border-radius: 10px;
+    padding: 0.5em;
+    float: right;
+    width: 10em;
+    height:3em;
+    
+    
+}
+
+.odjavi:hover{
+    background-image:linear-gradient( to right, #1963da,#5e9cff)
+}
+
+.odjavi:active{
+    background-image:linear-gradient( to right, #f0f0f0,#8cb2f0);
+    border: 2px solid #1963da;
+    color: #1963da
+}
+
+.prijavljenausluga{
+    width: 70%;
+    margin-left: 15%;
+    margin-top:2em;
+    display: inline-block;
+    padding-bottom: 0.6em;
+    border-bottom:solid 2px #498fff;
+}
+
+.prijavljeniincident{
+    width: 70%;
+    margin-left: 15%;
+    margin-top:2em;
+    display: inline-block;
+    padding-bottom: 0.6em;
+    border-bottom:solid 2px #498fff;
+}
+
+.naziv{
+    width: 100%;
+}
+
