@@ -1,14 +1,21 @@
 package com.incidentmng.incidentmng.controller;
 
 import com.incidentmng.incidentmng.helpers.JSONResponse;
+import com.incidentmng.incidentmng.model.Services;
 import com.incidentmng.incidentmng.model.Services_Users;
+import com.incidentmng.incidentmng.model.User;
+import com.incidentmng.incidentmng.service.ServicesService;
 import com.incidentmng.incidentmng.service.Services_UsersService;
+import com.incidentmng.incidentmng.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -16,10 +23,14 @@ import java.util.Optional;
 public class Services_UsersController {
 
     private Services_UsersService services_usersService;
+    private ServicesService servicesService;
+    private UserService userService;
 
     @Autowired
-    public Services_UsersController(Services_UsersService services_usersService) {
+    public Services_UsersController(ServicesService servicesService, UserService userService, Services_UsersService services_usersService) {
         this.services_usersService = services_usersService;
+        this.servicesService = servicesService;
+        this.userService = userService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -57,6 +68,22 @@ public class Services_UsersController {
         try {
             services_usersService.deleteServices_UsersById(id);
             return ResponseEntity.status(HttpStatus.OK).body(new JSONResponse("Successfully deleted. "));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/{id}")
+    public ResponseEntity assignServiceToUser(@RequestBody Map<String, Object> json, @PathVariable Long id) {
+        try {
+            Date start_date = new SimpleDateFormat("yyyy-MM-dd").parse(json.get("start_date").toString());
+            Date end_date = new SimpleDateFormat("yyyy-MM-dd").parse(json.get("end_date").toString());
+            String username = json.get("username").toString();
+            Optional<Services> service = servicesService.getServicesById(id);
+            User user = userService.getUserByUsername(username);
+            Services_Users services_users = new Services_Users(service.get(), user, start_date, end_date);
+            services_usersService.save(services_users);
+            return ResponseEntity.status(HttpStatus.OK).body(new JSONResponse("User successfully assigned to service"));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
         }

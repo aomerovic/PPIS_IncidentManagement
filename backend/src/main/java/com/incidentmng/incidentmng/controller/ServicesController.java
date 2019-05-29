@@ -5,6 +5,7 @@ import com.incidentmng.incidentmng.model.Services;
 import com.incidentmng.incidentmng.service.ServicesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@RequestMapping("/usluge")
+@RequestMapping("/services")
 public class ServicesController {
 
     private ServicesService servicesService;
@@ -26,7 +27,7 @@ public class ServicesController {
         this.servicesService = servicesService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAllServices() {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(servicesService.getAllServices());

@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Optional;
 
 @Entity
 @Table(name = "services_users")
@@ -28,17 +29,15 @@ public class Services_Users {
     private User user;
 
     @Column(name = "start_date")
-    @NotNull
     private Date start_date;
 
     @Column(name = "end_date")
-    @NotNull
     private Date end_date;
 
     public Services_Users() {
     }
 
-    public Services_Users(Services services, User user, @NotNull Date start_date, @NotNull Date end_date) {
+    public Services_Users(Services services, User user, Date start_date,Date end_date) {
         this.services = services;
         this.user = user;
         this.start_date = start_date;

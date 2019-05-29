@@ -61,4 +61,8 @@ public class UserServiceImpl implements UserService {
         return l.toString();
     }
 
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.getUserByUsername(username);
+    }
 }

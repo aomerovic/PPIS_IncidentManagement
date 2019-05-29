@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@RequestMapping("/korisnik")
+@RequestMapping("/user")
 public class UserController {
 
     private UserService userService;

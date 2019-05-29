@@ -21,4 +21,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Query(value="SELECT role_name FROM role WHERE id = (SELECT role_id FROM user WHERE id=:id)", nativeQuery = true)
     public String getRola(@Param("id") long id);
+
+    @Query(value = "SELECT * FROM user WHERE username=:username", nativeQuery = true)
+    User getUserByUsername(@Param("username") String username);
 }
