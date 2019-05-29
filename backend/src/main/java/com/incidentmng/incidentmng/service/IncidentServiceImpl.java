@@ -40,4 +40,9 @@ public class IncidentServiceImpl implements IncidentService {
         incidentRepository.deleteById(id);
         return id;
     }
+
+    @Override
+    public ArrayList<Incident> getIncidentsFromUser(long id){
+        return incidentRepository.getIncidentsFromUser(id);
+    }
 }

@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/incident_report")
@@ -61,4 +65,14 @@ public class IncidentReportController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
         }
     }
+
+    @RequestMapping(value="/getincidentreports/{id}", method=RequestMethod.GET)
+    public ResponseEntity requestMethodName(@PathVariable long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(incidentReportService.getReportsFromIncident(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
+        }
+    }
+    
 }
