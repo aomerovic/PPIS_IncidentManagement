@@ -16,7 +16,7 @@ render(){
         <Nav.Link href="/pregledusluga"><p className="textlink">Pregled usluga</p> </Nav.Link>
         <Nav.Link href="/userpanel"><p className="textlink">User panel</p> </Nav.Link>
         <Nav.Link href="/prijavaincidenta"><p className="textlink">Prijava incidenta</p> </Nav.Link>
-        <Nav.Link href="/"><p className="textlink">Logout</p> </Nav.Link>
+        <Nav.Link href="/login"><p className="textlink">Logout</p> </Nav.Link>
        
       </Navbar.Collapse>
       </Navbar>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
+import NavBar from '../NavBarUser/NavBar';
 
-import NavBar from '../NavBarUser/NavBar'
-
-import './UslugaOpis.css'
+import './UslugaOpis.css';
 
 class UslugaOpis extends Component {
 
@@ -10,6 +10,9 @@ class UslugaOpis extends Component {
 
 
   render() {
+    if(localStorage.getItem('prijavljen')==="false"){
+      return <Redirect to="/login"></Redirect>
+    }
     return (
       <div className="HomePage">
         

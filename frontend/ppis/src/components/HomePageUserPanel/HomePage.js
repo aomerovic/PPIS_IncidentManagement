@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import NavBar from '../NavBarUser/NavBar';
-import './HomePage.css'
-
+import './HomePage.css';
+import {Redirect} from 'react-router-dom';
 class HomePage extends Component {
 
  
 
   render() {
+    if(localStorage.getItem('prijavljen')==="false"){
+      return <Redirect to="/login"></Redirect>
+    }
     return (
       
       <div className="HomePage">

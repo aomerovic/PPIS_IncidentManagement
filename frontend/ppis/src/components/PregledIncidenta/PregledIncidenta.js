@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import NavBar from '../NavBarManager/NavBar';
 import { Form} from 'react-bootstrap';
-import './PregledIncidenta.css'
+import './PregledIncidenta.css';
+import {Redirect} from 'react-router-dom';
 
 class HomePage extends Component {
 
@@ -11,7 +12,10 @@ class HomePage extends Component {
 
 
   render() {
-
+    
+    if(localStorage.getItem('role')!=="incidentmanager"){
+      return <Redirect to="/login"></Redirect>
+    }
     
 
     return (

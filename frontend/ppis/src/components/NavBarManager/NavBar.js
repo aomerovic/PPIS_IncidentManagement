@@ -15,7 +15,7 @@ render(){
       
         <Nav.Link href="/incidentmanageradmin"><p className="textlink">Pregled incidenata</p> </Nav.Link>
         
-        <Nav.Link href="/"><p className="textlink">Logout</p> </Nav.Link>
+        <Nav.Link href="/login"><p className="textlink">Logout</p> </Nav.Link>
        
       </Navbar.Collapse>
       </Navbar>

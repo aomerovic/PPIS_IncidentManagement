@@ -4,7 +4,10 @@ import NavBar from '../NavBar/NavBar';
 import Usluga from "../UslugaComponent/UslugaComponent"
 import './HomePage.css'
 
+
+
 class HomePage extends Component {
+
 
   constructor(props) {
     super(props);
@@ -18,6 +21,13 @@ class HomePage extends Component {
     };
   }
 
+  componentDidMount(){
+    localStorage.setItem('username','');
+    localStorage.setItem('password','');
+    localStorage.setItem('id','');
+    localStorage.setItem('prijavljen',false);
+    localStorage.setItem('role','odjavljen');
+  }
 
   render() {
     return (

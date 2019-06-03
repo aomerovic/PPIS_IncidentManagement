@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import {Container,Row,Col} from 'react-bootstrap';
 import NavBar from '../NavBarUser/NavBar';
-import Usluga from "../UslugaComponent/UslugaComponent"
-import './HomePage.css'
+import Usluga from "../UslugaComponent/UslugaComponent";
+import {Redirect} from 'react-router-dom';
+import './HomePage.css';
+
+
 
 class HomePage extends Component {
 
@@ -18,8 +21,14 @@ class HomePage extends Component {
     };
   }
 
+  
+
 
   render() {
+    if(localStorage.getItem('prijavljen')==="false"){
+      return <Redirect to="/login"></Redirect>
+    }
+    else{
     return (
       
       <div className="HomePage">
@@ -78,6 +87,7 @@ class HomePage extends Component {
       </div>
     );
   }
+}
 }
 
 export default HomePage;
