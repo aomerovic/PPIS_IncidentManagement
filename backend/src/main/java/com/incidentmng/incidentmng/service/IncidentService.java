@@ -18,4 +18,6 @@ public interface IncidentService {
 
     ArrayList<Incident> getIncidentsFromUser(long id);
 
+    String getNumbers(long id);
+
 }

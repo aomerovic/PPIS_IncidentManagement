@@ -91,5 +91,15 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
         }
     }
+
+    @RequestMapping(value="/uposleni", method=RequestMethod.GET)
+    public ResponseEntity getEmployees() {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(userService.getEmployees());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
+        }
+    }
+    
     
 }

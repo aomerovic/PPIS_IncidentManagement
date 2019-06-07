@@ -45,4 +45,15 @@ public class IncidentServiceImpl implements IncidentService {
     public ArrayList<Incident> getIncidentsFromUser(long id){
         return incidentRepository.getIncidentsFromUser(id);
     }
+
+    @Override
+    public String getNumbers(long id) {
+        long ukupanBroj = incidentRepository.getNumberOfIncidents(id);
+        long rijeseni = incidentRepository.getNuberOfSolvedIncidents(id);
+        long aktivni = ukupanBroj - rijeseni;
+        return "{" + "\n" +
+            "\"UkupanBroj\": "+ ukupanBroj + ",\n" +
+            "\"rijeseni\": "+ rijeseni + ",\n" +
+            "\"aktivni\": "+ aktivni + "\n" + "}";
+    }
 }

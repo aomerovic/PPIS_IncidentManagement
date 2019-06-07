@@ -25,4 +25,6 @@ public interface UserService {
     String getUserId(String username);
 
     User getUserByUsername(String username);
+
+    Iterable<User> getEmployees();
 }

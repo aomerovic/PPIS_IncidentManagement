@@ -65,4 +65,9 @@ public class UserServiceImpl implements UserService {
     public User getUserByUsername(String username) {
         return userRepository.getUserByUsername(username);
     }
+
+    @Override
+    public Iterable<User> getEmployees(){
+        return userRepository.getEmployees();
+    }
 }

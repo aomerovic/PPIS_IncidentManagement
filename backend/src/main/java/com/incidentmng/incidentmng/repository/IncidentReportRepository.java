@@ -14,4 +14,7 @@ public interface IncidentReportRepository extends CrudRepository<IncidentReport,
 
     @Query(value = "SELECT * FROM incident_report WHERE incident_id = :id", nativeQuery = true)
     public ArrayList<IncidentReport> getReportsFromIncident(@Param("id") long id);
+    
+
 }
+
