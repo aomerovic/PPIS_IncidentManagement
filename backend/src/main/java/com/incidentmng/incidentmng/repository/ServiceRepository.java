@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ServiceRepository extends CrudRepository<Services, Long> {
     
-    @Query(value="SELECT * FROM service WHERE id IN (SELECT service_id FROM services_users WHERE user_id = :id)", nativeQuery = true)
+    @Query(value="SELECT * FROM service WHERE id IN (SELECT service_id FROM services_users WHERE user_id = :id and (end_date IS NULL))", nativeQuery = true)
     public ArrayList<Services> getServices(@Param("id") long id);
 }

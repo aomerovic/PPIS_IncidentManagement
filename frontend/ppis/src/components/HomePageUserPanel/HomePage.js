@@ -86,7 +86,9 @@ class HomePage extends Component {
               .then(
                 (responseJson) => {
                   
-                  alert(JSON.stringify(responseJson))
+                  this.setState({
+                    isLoading:true
+                  })
 
                 })
               }
@@ -127,7 +129,9 @@ class HomePage extends Component {
               .then(
                 (responseJson) => {
                   
-                  alert(JSON.stringify(responseJson));
+                  this.setState({
+                    isLoading:true
+                  })
 
                 })
               }

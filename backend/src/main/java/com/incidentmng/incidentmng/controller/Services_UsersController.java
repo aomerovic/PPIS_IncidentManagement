@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
@@ -95,6 +96,17 @@ public class Services_UsersController {
             User user = userService.getUserByUsername(json.get("username").toString());
             services_usersService.updateServicesUsers(id, end, user);
             return ResponseEntity.status(HttpStatus.OK).body(new JSONResponse("User successfully removed from service"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
+        }
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/user/{id}")
+    public ResponseEntity userservices() {
+        try {
+        	ArrayList<Services_Users> list=services_usersService.getAllServices_Users();
+        	
+        	return ResponseEntity.status(HttpStatus.OK).body(list);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
         }
