@@ -44,6 +44,9 @@ public class Incident {
     @NotNull
     private User user;
 
+    @Column(name = "handle_id")
+    private Long handle_id;
+
     @Column(name = "escalated")
     @NotNull
     @Min(value = 0, message = "Value has to be 0 or 1")
@@ -53,7 +56,7 @@ public class Incident {
     public Incident() {
     }
 
-    public Incident(@NotNull Services service, @NotNull Category category, @NotNull String description, @NotNull Priority priority, @NotNull Date report_date, @NotNull User user, @NotNull @Min(value = 0, message = "Value has to be 0 or 1") @Max(value = 1, message = "Value has to be 0 or 1") Integer escalated) {
+    public Incident(Long handle_id, @NotNull Services service, @NotNull Category category, @NotNull String description, @NotNull Priority priority, @NotNull Date report_date, @NotNull User user, @NotNull @Min(value = 0, message = "Value has to be 0 or 1") @Max(value = 1, message = "Value has to be 0 or 1") Integer escalated) {
         this.service = service;
         this.category = category;
         this.description = description;
@@ -61,6 +64,7 @@ public class Incident {
         this.report_date = report_date;
         this.user = user;
         this.escalated = escalated;
+        this.handle_id = handle_id;
     }
 
     public long getId() {
@@ -126,4 +130,13 @@ public class Incident {
     public void setEscalated(Integer escalated) {
         this.escalated = escalated;
     }
+
+    public Long getHandle_id() {
+        return handle_id;
+    }
+
+    public void setHandle_id(Long handle_id) {
+        this.handle_id = handle_id;
+    }
 }
+
