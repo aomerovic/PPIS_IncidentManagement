@@ -1,5 +1,6 @@
 package com.incidentmng.incidentmng.service;
 
+import com.incidentmng.incidentmng.model.Services;
 import com.incidentmng.incidentmng.model.Services_Users;
 import com.incidentmng.incidentmng.model.User;
 import com.incidentmng.incidentmng.repository.Services_UsersRepository;
@@ -51,6 +52,11 @@ public class Services_UsersServiceImpl implements Services_UsersService {
         services_users.setActive("true");
         services_users.setEnd_date(date);
         services_usersRepository.save(services_users);
+    }
+
+    @Override
+    public Services_Users findServicesUsers(Services services, User user) {
+        return services_usersRepository.getServices_UsersForUserAndService(services.getId(), user.getId());
     }
 
 }

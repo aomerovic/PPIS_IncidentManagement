@@ -5,7 +5,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.incidentmng.incidentmng.helpers.JSONResponse;
 import com.incidentmng.incidentmng.model.Incident;
+import com.incidentmng.incidentmng.model.Services;
+import com.incidentmng.incidentmng.model.Services_Users;
+import com.incidentmng.incidentmng.model.User;
 import com.incidentmng.incidentmng.service.IncidentService;
+import com.incidentmng.incidentmng.service.Services_UsersService;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,10 +33,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class IncidentController {
 
     private IncidentService incidentService;
+    private Services_UsersService services_usersService;
 
     @Autowired
-    public IncidentController(IncidentService incidentService) {
+    public IncidentController(IncidentService incidentService, Services_UsersService services_usersService) {
         this.incidentService = incidentService;
+        this.services_usersService = services_usersService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -64,13 +70,15 @@ public class IncidentController {
             Incident incident1 = incident;
             incident1.setReport_date(date);
             System.out.print(incident1.getReport_date());
-            incidentService.save(incident1);
-            return ResponseEntity.status(HttpStatus.OK).body("aa");
+            Services_Users services1 = services_usersService.findServicesUsers(incident.getService(),incident.getUser());
+            if(services1 != null)
+                return ResponseEntity.status(HttpStatus.OK).body( incidentService.save(incident1));
+            else
+                throw new Exception("User not assigned to service");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
         }
     }
-    
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public ResponseEntity deleteIncident(@PathVariable Long id) {
