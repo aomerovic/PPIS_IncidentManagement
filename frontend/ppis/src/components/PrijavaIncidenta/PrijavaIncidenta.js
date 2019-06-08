@@ -8,6 +8,10 @@ import {Redirect} from 'react-router-dom';
 import './PrijavaIncidenta.css';
 
 class PrijavaIncidenta extends Component {
+
+  
+
+
   render() {
     if(localStorage.getItem('prijavljen')==="false"){
       return <Redirect to="/login"></Redirect>
