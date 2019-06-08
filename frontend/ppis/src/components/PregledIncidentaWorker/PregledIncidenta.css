@@ -16,6 +16,7 @@
 
 .HomePage{
     height: 100%;
+    padding-bottom: 3em;
     
 }
 
@@ -41,12 +42,15 @@
     background-image:linear-gradient( to right, #498fff,#afceff) ;
     color:white;
     font-size: 15px;
+    font-weight: bold;
     border: 0;
     border-radius: 10px;
     padding: 0.5em;
     float: right;
     width: 10em;
     height:3em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
     
     
 }
@@ -61,7 +65,6 @@
     color: #1963da
 }
 
-.select{
-    margin:auto;
-    width: 60%;
+.kontrolselect{
+    width: 50%;
 }

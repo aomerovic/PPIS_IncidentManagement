@@ -14,8 +14,6 @@ render(){
        <Nav className="mr-auto"></Nav>
       
         <Nav.Link href="/incidentmanageradmin"><p className="textlink">Pregled incidenata</p> </Nav.Link>
-
-        <Nav.Link href="/statistika"><p className="textlink">Statstika</p> </Nav.Link>
         
         <Nav.Link href="/login"><p className="textlink">Logout</p> </Nav.Link>
        

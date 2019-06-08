@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavBar from '../NavBarManager/NavBar';
+import NavBar from '../NavBarWorker/NavBar';
 import {Redirect} from 'react-router-dom';
 import { Form} from 'react-bootstrap';
 import './HomePage.css';
@@ -29,12 +29,12 @@ class HomePage extends Component {
 
 
   render() {
-    if(localStorage.getItem('role')!=="incidentmanager"){
+    if(localStorage.getItem('role')!=="uposleni"){
       return <Redirect to="/login"></Redirect>
     }
 
     if(this.state.redirect === true){
-      return <Redirect to="/pregledincidenta"></Redirect>
+      return <Redirect to="/pregledincidentauposleni"></Redirect>
     }
 
     return (

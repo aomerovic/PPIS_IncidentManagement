@@ -25,7 +25,7 @@ class HomePage extends Component {
         </div>
 
         <div className="prijavljenausluga">
-            <p><p className="naziv">Sistema za upravljanje uposlenicima</p> </p><button className="odjavi">Odjavi uslugu</button>
+            <p><p className="naziv">Sistem za upravljanje uposlenicima</p> </p><button className="odjavi">Odjavi uslugu</button>
             
         </div>
 
