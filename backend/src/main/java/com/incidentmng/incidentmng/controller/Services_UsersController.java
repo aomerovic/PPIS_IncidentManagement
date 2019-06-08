@@ -92,7 +92,8 @@ public class Services_UsersController {
     public ResponseEntity removeAssignServiceToUser(@RequestBody Map<String, Object> json, @PathVariable Long id) {
         try {
             Date end = new SimpleDateFormat("yyyy-MM-dd").parse(json.get("end_date").toString());
-            services_usersService.updateServicesUsers(id, end);
+            User user = userService.getUserByUsername(json.get("username").toString());
+            services_usersService.updateServicesUsers(id, end, user);
             return ResponseEntity.status(HttpStatus.OK).body(new JSONResponse("User successfully removed from service"));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));

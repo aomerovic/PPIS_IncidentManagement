@@ -24,4 +24,5 @@ public interface IncidentRepository extends CrudRepository<Incident, Long> {
     @Query(value = "SELECT * FROM incident WHERE handle_id=:id", nativeQuery = true)
     public ArrayList<Incident> getAllIncidentsForUser(@Param("id") long id);
 
+
 }

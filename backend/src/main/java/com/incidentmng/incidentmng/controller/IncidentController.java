@@ -58,12 +58,19 @@ public class IncidentController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createIncident(@RequestBody @Valid Incident incident) {
         try {
-            Incident incident1 = incidentService.save(incident);
-            return ResponseEntity.status(HttpStatus.OK).body(incident1);
+            Date date = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            System.out.println(formatter.format(date));
+            Incident incident1 = incident;
+            incident1.setReport_date(date);
+            System.out.print(incident1.getReport_date());
+            incidentService.save(incident1);
+            return ResponseEntity.status(HttpStatus.OK).body("aa");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
         }
     }
+    
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public ResponseEntity deleteIncident(@PathVariable Long id) {

@@ -1,10 +1,12 @@
 package com.incidentmng.incidentmng.service;
 
 import com.incidentmng.incidentmng.model.Services_Users;
+import com.incidentmng.incidentmng.model.User;
 import com.incidentmng.incidentmng.repository.Services_UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -42,9 +44,10 @@ public class Services_UsersServiceImpl implements Services_UsersService {
         return id;
     }
 
+
     @Override
-    public void updateServicesUsers(long id, Date date) {
-        Services_Users services_users = services_usersRepository.findById(id).get();
+    public void updateServicesUsers(long id, Date date, User user) {
+        Services_Users services_users = services_usersRepository.getServices_UsersForUserAndService(id, user.getId());
         services_users.setActive("true");
         services_users.setEnd_date(date);
         services_usersRepository.save(services_users);

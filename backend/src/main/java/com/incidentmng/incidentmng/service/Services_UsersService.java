@@ -1,6 +1,7 @@
 package com.incidentmng.incidentmng.service;
 
 import com.incidentmng.incidentmng.model.Services_Users;
+import com.incidentmng.incidentmng.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,5 +18,5 @@ public interface Services_UsersService {
 
     Long deleteServices_UsersById(long id);
 
-    void updateServicesUsers(long id, Date date);
+    void updateServicesUsers(long id, Date date, User user);
 }
