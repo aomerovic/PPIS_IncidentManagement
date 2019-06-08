@@ -35,9 +35,6 @@ class PrijavaForm extends Component {
     };
    
    
-   
-   
-   
     fetch('/user',{
       method: "POST",
       body: JSON.stringify(korisnik),  

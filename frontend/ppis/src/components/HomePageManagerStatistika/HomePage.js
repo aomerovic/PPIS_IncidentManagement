@@ -12,7 +12,7 @@ class HomePage extends Component {
   render() {
     var webstranica = [
       {
-        name: 'rješeni', rjeseni: 7, aktivni: 3, ukupno: 10,
+        name: 'riješeni', rijeseni: 7, aktivni: 3, ukupno: 10,
       }
     ];
     
@@ -31,7 +31,7 @@ class HomePage extends Component {
 
           <p className="naziv">Ukupna broj prijavljenih incidenata: 10</p>
           <p className="naziv">Ukupna broj aktivnih incidenata: 3</p>
-          <p className="naziv">Ukupna broj rješenih incidenata: 7</p>
+          <p className="naziv">Ukupna broj riješenih incidenata: 7</p>
           <br></br>
           <div className="chart">
           <BarChart
@@ -47,7 +47,7 @@ class HomePage extends Component {
               <Tooltip />
               <Legend />
               
-              <Bar dataKey="rjeseni" fill="#498fff" />
+              <Bar dataKey="rijeseni" fill="#498fff" />
               <Bar dataKey="aktivni" fill="red" />
               
         </BarChart>

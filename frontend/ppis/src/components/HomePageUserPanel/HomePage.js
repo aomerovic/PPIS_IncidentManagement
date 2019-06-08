@@ -4,12 +4,142 @@ import './HomePage.css';
 import {Redirect} from 'react-router-dom';
 class HomePage extends Component {
 
- 
+  constructor(props){
+    super(props);
+    this.state ={ 
+    isLoading: true,
+    prijavljeneusluge:[],
+    neprijavljeneusluge:[],
+    redirect:false,
+    ids:[2,3,4,5]
+    }
+    }
+    componentDidMount(){
 
+      var l=[]
+
+
+      for(var i=2;i<=5;i++){
+        
+        fetch('/services/'+i).then((response) => response.json())
+        .then((responseJson) => {
+        l.push(responseJson)  
+        this.setState({
+        neprijavljeneusluge:l
+        }
+        )
+        })
+      }  
+
+    fetch('/services/korisnikusluge/'+localStorage.getItem('id'))
+    .then((response) => response.json())
+    .then((responseJson) => {
+    this.setState({
+    prijavljeneusluge:responseJson,
+    isLoading:false
+    }
+    )
+    })
+
+    
+
+    }
+
+    
   render() {
     if(localStorage.getItem('prijavljen')==="false"){
       return <Redirect to="/login"></Redirect>
     }
+    if(this.state.isLoading){
+      return(
+      <div>Loading</div>
+      )
+      }
+
+      var t_id=this.state.ids
+
+      var prijavljeneusluge = this.state.prijavljeneusluge.map(function(usluga){
+        t_id[usluga.id-3]=0
+        return(
+          <div className="prijavljenausluga">
+          
+          <p className="naziv">{usluga.service}</p> 
+          <button className="odjavi" onClick={()=>{
+              let newDate = new Date()
+              let date = newDate.getDate();
+              let month = newDate.getMonth() + 1;
+              let year = newDate.getFullYear();
+              
+              var d = year+"-"+month+"-"+date;
+              var data={
+                username:localStorage.getItem('username'),
+                end_date:d
+              }
+               fetch('/services_users/'+usluga.id,{
+                method: "PUT",
+                body: JSON.stringify(data),  
+                headers:{
+                  'Content-Type': 'application/json'
+                 }
+          
+              }).then((response) => response.json())
+              .then(
+                (responseJson) => {
+                  
+                  alert(JSON.stringify(responseJson))
+
+                })
+              }
+            }>Odjavi uslugu</button>
+        
+          </div>
+
+        )  
+        
+        
+        });
+
+        var neprijavljeneusluge = this.state.neprijavljeneusluge.map(function(usluga){
+          if(t_id[usluga.id-3]!=0){
+          return(
+            <div className="prijavljenausluga">
+            
+            <p className="naziv">{usluga.service}</p> 
+            <button className="odjavi" onClick={()=>{
+              let newDate = new Date()
+              let date = newDate.getDate();
+              let month = newDate.getMonth() + 1;
+              let year = newDate.getFullYear();
+              
+              var d = year+"-"+month+"-"+date;
+              var data={
+                username:localStorage.getItem('username'),
+                start_date:d
+              }
+               fetch('/services_users/'+usluga.id,{
+                method: "POST",
+                body: JSON.stringify(data),  
+                headers:{
+                  'Content-Type': 'application/json'
+                 }
+          
+              }).then((response) => response.json())
+              .then(
+                (responseJson) => {
+                  
+                  alert(JSON.stringify(responseJson));
+
+                })
+              }
+            }>Prijavi uslugu</button>
+          
+            </div>
+  
+          )  
+          }
+          
+          });
+
     return (
       
       <div className="HomePage">
@@ -19,27 +149,12 @@ class HomePage extends Component {
 
         <div className="podnaslov"> Prijavljenje usluge</div>
 
-        <div className="prijavljenausluga">
-            <p><p className="naziv">Web stranica</p> </p><button className="odjavi">Odjavi uslugu</button>
-            
-        </div>
+        {prijavljeneusluge}
 
-        <div className="prijavljenausluga">
-            <p><p className="naziv">Sistem za upravljanje uposlenicima</p> </p><button className="odjavi">Odjavi uslugu</button>
-            
-        </div>
 
         <div className="podnaslov"> Neprijavljenje usluge</div>
 
-        <div className="prijavljenausluga">
-            <p><p className="naziv">Sistem za upravljanje poslovanjem</p> </p><button className="odjavi">Prijavi uslugu</button>
-            
-        </div>
-
-        <div className="prijavljenausluga">
-            <p><p className="naziv">Sistem za rezervacije</p> </p><button className="odjavi">Prijavi uslugu</button>
-            
-        </div>
+        {neprijavljeneusluge}
 
         <div className="podnaslov"> Prijavljeni incidenti</div>
 
