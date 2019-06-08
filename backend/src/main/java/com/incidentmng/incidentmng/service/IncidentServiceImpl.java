@@ -1,5 +1,7 @@
 package com.incidentmng.incidentmng.service;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.incidentmng.incidentmng.model.Incident;
 import com.incidentmng.incidentmng.repository.IncidentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,7 @@ import java.util.Optional;
 @Service
 public class IncidentServiceImpl implements IncidentService {
 
-    public IncidentRepository incidentRepository;
+    private IncidentRepository incidentRepository;
 
     @Autowired
     public IncidentServiceImpl(IncidentRepository incidentRepository) {
@@ -47,13 +49,40 @@ public class IncidentServiceImpl implements IncidentService {
     }
 
     @Override
-    public String getNumbers(long id) {
+    public JsonObject getNumbers(long id) {
         long ukupanBroj = incidentRepository.getNumberOfIncidents(id);
         long rijeseni = incidentRepository.getNuberOfSolvedIncidents(id);
         long aktivni = ukupanBroj - rijeseni;
-        return "{" + "\n" +
-            "\"UkupanBroj\": "+ ukupanBroj + ",\n" +
-            "\"rijeseni\": "+ rijeseni + ",\n" +
-            "\"aktivni\": "+ aktivni + "\n" + "}";
+        String json = "{\"ukupanBroj\": "+ ukupanBroj + ", \"rijeseni\": "+ rijeseni + ", \"aktivni\": "+ aktivni + " }";
+        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+        return jsonObject;
+    }
+
+    @Override
+    public void updateIncident(long id, Incident incident1) {
+        Incident incident = incidentRepository.findById(id).get();
+        incident.setCategory(incident1.getCategory());
+        incident.setDescription(incident1.getDescription());
+        incident.setEscalated(incident1.getEscalated());
+        incident.setId(incident1.getId());
+        incident.setPriority(incident1.getPriority());
+        incident.setReport_date(incident1.getReport_date());
+        incident.setService(incident1.getService());
+        incident.setUser(incident1.getUser());
+        incidentRepository.save(incident);
+    }
+
+    @Override
+    public void assignUser(long id_incident, long id_user) {
+        System.out.print(id_user);
+        Incident incident = incidentRepository.findById(id_incident).get();
+        incident.setHandle_id(id_user);
+        incidentRepository.save(incident);
+
+    }
+
+    @Override
+    public ArrayList<Incident> getAllIncidentsForUser(long id) {
+        return incidentRepository.getAllIncidentsForUser(id);
     }
 }

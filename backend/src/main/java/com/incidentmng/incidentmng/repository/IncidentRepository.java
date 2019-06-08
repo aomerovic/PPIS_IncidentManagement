@@ -21,4 +21,7 @@ public interface IncidentRepository extends CrudRepository<Incident, Long> {
     @Query(value = "SELECT COUNT(*) FROM incident where service_id=:id and id in (SELECT incident_id from status_incidents WHERE status_id = 1)", nativeQuery=true)
     public long getNuberOfSolvedIncidents(@Param("id") long id);
 
+    @Query(value = "SELECT * FROM incident WHERE handle_id=:id", nativeQuery = true)
+    public ArrayList<Incident> getAllIncidentsForUser(@Param("id") long id);
+
 }
