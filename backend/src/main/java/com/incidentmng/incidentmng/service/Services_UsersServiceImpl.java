@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -40,4 +41,13 @@ public class Services_UsersServiceImpl implements Services_UsersService {
         services_usersRepository.deleteById(id);
         return id;
     }
+
+    @Override
+    public void updateServicesUsers(long id, Date date) {
+        Services_Users services_users = services_usersRepository.findById(id).get();
+        services_users.setActive("true");
+        services_users.setEnd_date(date);
+        services_usersRepository.save(services_users);
+    }
+
 }

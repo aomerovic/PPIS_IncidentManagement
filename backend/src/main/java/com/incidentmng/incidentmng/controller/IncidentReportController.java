@@ -51,6 +51,7 @@ public class IncidentReportController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
         }
     }
+    
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public ResponseEntity deleteIncidentReport(@PathVariable Long id) {

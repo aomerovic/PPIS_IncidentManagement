@@ -77,15 +77,26 @@ public class Services_UsersController {
     public ResponseEntity assignServiceToUser(@RequestBody Map<String, Object> json, @PathVariable Long id) {
         try {
             Date start_date = new SimpleDateFormat("yyyy-MM-dd").parse(json.get("start_date").toString());
-            Date end_date = new SimpleDateFormat("yyyy-MM-dd").parse(json.get("end_date").toString());
             String username = json.get("username").toString();
             Optional<Services> service = servicesService.getServicesById(id);
             User user = userService.getUserByUsername(username);
-            Services_Users services_users = new Services_Users(service.get(), user, start_date, end_date);
+            Services_Users services_users = new Services_Users(service.get(), user, start_date, null, "true");
             services_usersService.save(services_users);
             return ResponseEntity.status(HttpStatus.OK).body(new JSONResponse("User successfully assigned to service"));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
         }
     }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+    public ResponseEntity removeAssignServiceToUser(@RequestBody Map<String, Object> json, @PathVariable Long id) {
+        try {
+            Date end = new SimpleDateFormat("yyyy-MM-dd").parse(json.get("end_date").toString());
+            services_usersService.updateServicesUsers(id, end);
+            return ResponseEntity.status(HttpStatus.OK).body(new JSONResponse("User successfully removed from service"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
+        }
+    }
+
 }

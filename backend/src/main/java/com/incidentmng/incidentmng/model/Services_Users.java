@@ -21,27 +21,35 @@ public class Services_Users {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="service_id", referencedColumnName="id")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
     private Services services;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="user_id", referencedColumnName="id")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
     private User user;
 
     @Column(name = "start_date")
+    @NotNull
     private Date start_date;
 
     @Column(name = "end_date")
     private Date end_date;
 
+    @Column(name = "active")
+    @NotNull
+    private String active;
+
     public Services_Users() {
     }
 
-    public Services_Users(Services services, User user, Date start_date,Date end_date) {
+    public Services_Users(@NotNull Services services, @NotNull User user, @NotNull Date start_date, Date end_date, @NotNull String active) {
         this.services = services;
         this.user = user;
         this.start_date = start_date;
         this.end_date = end_date;
+        this.active = active;
     }
 
     public long getId() {
@@ -82,5 +90,13 @@ public class Services_Users {
 
     public void setEnd_date(Date end_date) {
         this.end_date = end_date;
+    }
+
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
     }
 }
