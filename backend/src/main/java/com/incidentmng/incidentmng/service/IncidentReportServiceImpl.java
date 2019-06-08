@@ -40,4 +40,9 @@ public class IncidentReportServiceImpl implements IncidentReportService {
          incidentReportRepository.deleteById(id);
          return id;
     }
+
+    @Override
+    public ArrayList<IncidentReport> getReportsFromIncident(long id) {
+        return incidentReportRepository.getReportsFromIncident(id);
+    }
 }

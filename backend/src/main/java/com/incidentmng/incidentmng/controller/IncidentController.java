@@ -9,8 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.validation.Valid;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/incident")
@@ -63,4 +68,23 @@ public class IncidentController {
         }
     }
 
+    @RequestMapping(value="/getincidents/{id}", method=RequestMethod.GET)
+    public ResponseEntity getIncidentsFromUser(@PathVariable long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(incidentService.getIncidentsFromUser(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
+        }
+    }
+
+    @RequestMapping(value="/uslugaincidenti/{id}", method=RequestMethod.GET)
+    public ResponseEntity getNumbers(@PathVariable long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(incidentService.getNumbers(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
+        }
+    }
+
+    
 }

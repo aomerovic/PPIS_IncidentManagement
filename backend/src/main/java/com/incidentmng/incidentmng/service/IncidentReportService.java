@@ -15,4 +15,6 @@ public interface IncidentReportService {
     ArrayList<IncidentReport> getAllIncidentReports();
 
     Long deleteIncidentReportById(long id);
+
+    ArrayList<IncidentReport> getReportsFromIncident(long id);
 }

@@ -15,4 +15,9 @@ public interface IncidentService {
     ArrayList<Incident> getAllIncidents();
 
     Long deleteIncidentById(long id);
+
+    ArrayList<Incident> getIncidentsFromUser(long id);
+
+    String getNumbers(long id);
+
 }

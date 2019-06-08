@@ -1,0 +1,27 @@
+
+.naslov{
+    size:3em;
+    padding-top: 15px;
+    padding-bottom: 12px;
+    margin: 0cm;
+    background-image:linear-gradient(to right, #498fff,white) ;
+    color: antiquewhite;
+    font-weight: bold;
+    font-size: 2em;
+    margin-top: 0cm;
+    text-align: left;
+    width: 100%;
+    padding-left: 5%;
+}
+
+.HomePage{
+    height: 100%;
+    
+}
+
+.body{
+    width: 100%;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+}
+
