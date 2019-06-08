@@ -13,7 +13,7 @@ class HomePage extends Component {
 
   render() {
     
-    if(localStorage.getItem('role')!=="incidentmanager"){
+    if(localStorage.getItem('role')!=="uposleni"){
       return <Redirect to="/login"></Redirect>
     }
     
