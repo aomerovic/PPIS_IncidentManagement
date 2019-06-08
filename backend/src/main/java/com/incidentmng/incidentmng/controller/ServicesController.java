@@ -67,12 +67,5 @@ public class ServicesController {
         }
     }
 
-    @RequestMapping(value="/korisnikusluge/{id}", method=RequestMethod.GET)
-    public ResponseEntity requestMethodName(@PathVariable Long id) {
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(servicesService.getServicesFromUser(id));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new JSONResponse(e.getLocalizedMessage()));
-        }
-    }
+    
 }

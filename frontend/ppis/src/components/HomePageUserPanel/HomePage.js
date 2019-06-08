@@ -64,7 +64,7 @@ class HomePage extends Component {
           <div className="prijavljenausluga">
           
           <p className="naziv">{usluga.service}</p> 
-          <button className="odjavi" onClick={()=>{
+          <a href="/userpanel"><button className="odjavi" onClick={()=>{
               let newDate = new Date()
               let date = newDate.getDate();
               let month = newDate.getMonth() + 1;
@@ -92,7 +92,7 @@ class HomePage extends Component {
 
                 })
               }
-            }>Odjavi uslugu</button>
+            }>Odjavi uslugu</button></a>
         
           </div>
 
@@ -107,7 +107,7 @@ class HomePage extends Component {
             <div className="prijavljenausluga">
             
             <p className="naziv">{usluga.service}</p> 
-            <button className="odjavi" onClick={()=>{
+            <a href="/userpanel"><button className="odjavi" onClick={()=>{
               let newDate = new Date()
               let date = newDate.getDate();
               let month = newDate.getMonth() + 1;
@@ -129,13 +129,11 @@ class HomePage extends Component {
               .then(
                 (responseJson) => {
                   
-                  this.setState({
-                    isLoading:true
-                  })
+                 
 
                 })
               }
-            }>Prijavi uslugu</button>
+            }>Prijavi uslugu</button></a>
           
             </div>
   
