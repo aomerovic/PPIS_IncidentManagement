@@ -13,4 +13,5 @@ import java.util.Date;
 public interface Services_UsersRepository extends CrudRepository<Services_Users, Long> {
     @Query(value = "SELECT * FROM services_users WHERE service_id=:id AND user_id=:user_id", nativeQuery = true)
     public Services_Users getServices_UsersForUserAndService(@Param("id") long id, @Param("user_id") long user_id);
+
 }
