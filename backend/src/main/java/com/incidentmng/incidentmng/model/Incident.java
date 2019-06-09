@@ -29,6 +29,10 @@ public class Incident {
     @Column(name = "description")
     @NotNull
     private String description;
+    
+    @Column(name = "s_id")
+    @NotNull
+    private String sid;
 
     @ManyToOne
     @JoinColumn(name="priority_id", referencedColumnName="id")
@@ -56,7 +60,7 @@ public class Incident {
     public Incident() {
     }
 
-    public Incident(Long handle_id, @NotNull Services service, @NotNull Category category, @NotNull String description, @NotNull Priority priority, @NotNull Date report_date, @NotNull User user, @NotNull @Min(value = 0, message = "Value has to be 0 or 1") @Max(value = 1, message = "Value has to be 0 or 1") Integer escalated) {
+    public Incident(Long handle_id, @NotNull Services service, @NotNull Category category, @NotNull String description, @NotNull Priority priority, @NotNull Date report_date, @NotNull User user, @NotNull @Min(value = 0, message = "Value has to be 0 or 1") @Max(value = 1, message = "Value has to be 0 or 1") Integer escalated,String sid) {
         this.service = service;
         this.category = category;
         this.description = description;
@@ -65,9 +69,18 @@ public class Incident {
         this.user = user;
         this.escalated = escalated;
         this.handle_id = handle_id;
+        this.sid=sid;
     }
 
-    public long getId() {
+    public String getSid() {
+		return sid;
+	}
+
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+
+	public long getId() {
         return id;
     }
 

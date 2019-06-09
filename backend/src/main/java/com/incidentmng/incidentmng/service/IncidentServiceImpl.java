@@ -69,6 +69,7 @@ public class IncidentServiceImpl implements IncidentService {
         incident.setReport_date(incident1.getReport_date());
         incident.setService(incident1.getService());
         incident.setUser(incident1.getUser());
+        incident.setSid(incident1.getSid());
         incidentRepository.save(incident);
     }
 

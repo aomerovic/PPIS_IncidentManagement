@@ -45,7 +45,11 @@ public class User {
         this.role = role;
     }
 
-    public long getId() {
+    public User(User user) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public long getId() {
         return id;
     }
 

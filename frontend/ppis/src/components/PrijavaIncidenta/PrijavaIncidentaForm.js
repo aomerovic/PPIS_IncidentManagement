@@ -15,7 +15,9 @@ class PrijavaForm extends Component {
       this.state = {
         redirect: false,
         usluga:2,
-        opis:''
+        ime:"Izrada web stranice",
+        cijena:"35.00",
+        opis:'',
       };
       this.onPrijava = this.onPrijava.bind(this)
   }
@@ -26,7 +28,58 @@ class PrijavaForm extends Component {
      alert("opis incidenta ne može biti prazan")
      return
    }
+   var incident={
+    
+    service: {
+        id: this.state.usluga,
+        service: this.state.ime,
+        service_price: this.state.cijena
+    },
+    category: {
+        id: 2,
+        category: "incident"
+    },
+    description: this.state.opis,
+    priority: {
+        id: 3,
+        priority: "srednji"
+    },
+    sid:	"prijavljen",
+    report_date: "2019-06-29T00:00:00.000+0000",
+    user: {
+        id: localStorage.getItem('id'),
+        first_name: "korisnik1",
+        last_name: "korinik1",
+        username: localStorage.getItem('username'),
+        password: localStorage.getItem('password'),
+        role: {
+            id: 2,
+            role: "user"
+        }
+    },
+    handle_id: 2,
+    escalated: 0
+  }
 
+  fetch('/incident',{
+    method: "POST",
+    body: JSON.stringify(incident),  
+    headers:{
+      'Content-Type': 'application/json'
+     }
+
+  }).then((response) => response.json())
+  .then(
+    (responseJson) => {
+      
+      if(responseJson.message==="User not assigned to service"){
+        alert("Da bi ste prijavili incident morate biti korisnik usluge")
+      }
+      else{
+        alert("Uspješno prijavljen incident")
+      }
+
+    })
    
   
   }
@@ -47,22 +100,30 @@ class PrijavaForm extends Component {
             <Form.Control as="select" onChange={(e)=>{
               if(e.target.value==="Izrada web stranice"){
                 this.setState({
-                  usluga:2
+                  usluga:2,
+                  ime:"Izrada web stranice",
+                  cijena:"35.00"
                 })
               }
               if(e.target.value==="Upravljanje rezervacijama"){
                 this.setState({
-                  usluga:3
+                  usluga:3,
+                  ime:"Upravljanje rezervacijama",
+                  cijena:"50.00"
                 })
               }
               if(e.target.value==="Upravljanje uposlenicima"){
                 this.setState({
-                  usluga:4
+                  usluga:4,
+                  ime:"Upravljanje uposlenicima",
+                  cijena:"50.00"
                 })
               }
               if(e.target.value==="Upravljanje poslovanjem"){
                 this.setState({
-                  usluga:5
+                  usluga:5,
+                  ime:"Upravljanje poslovanjem",
+                  cijena:"50.00"
                 })
               }
               

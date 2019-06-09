@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Form} from 'react-bootstrap';
 import NavBar from '../NavBarUser/NavBar';
 import './HomePage.css';
 import {Redirect} from 'react-router-dom';
@@ -10,8 +11,11 @@ class HomePage extends Component {
     isLoading: true,
     prijavljeneusluge:[],
     neprijavljeneusluge:[],
+    odbijen:"",
+    ceka:"",
     redirect:false,
-    ids:[2,3,4,5]
+    ids:[2,3,4,5],
+    incidneti:[]
     }
     }
     componentDidMount(){
@@ -36,10 +40,250 @@ class HomePage extends Component {
     .then((responseJson) => {
     this.setState({
     prijavljeneusluge:responseJson,
-    isLoading:false
     }
     )
+    }).then(
+
+    fetch('/incident/getincidents/'+localStorage.getItem('id'))
+    .then((response)=>response.json())
+    .then((responseJson)=>{
+
+      this.setState({
+        incidneti:responseJson,      
+      })
+    }).then(
+       ()=>{
+        global.that=this 
+        global.incidenti=this.state.incidneti.map(function(incident){
+          var date=incident.report_date
+          
+          date = date.substring(0,10);   
+
+          if(incident.sid==="ceka potvrdu"){
+            return (
+  
+              <div className="prijavljeniincident">
+              <p className="naziv">IncidnetId:{incident.id}</p>
+              <p className="naziv">Usluga:{incident.service.service}</p>
+              <p className="naziv">Datum prijavljivanja: {date}</p>
+              <p className="naziv">Opis incidenta:</p>
+              <p className="naziv">{incident.description}</p>
+              <p className="naziv">Status: {incident.sid}</p>
+              <Form.Group controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Novi opis incidenta</Form.Label>
+              <Form.Control as="textarea" rows="5" onChange={(e)=>{
+              global.that.setState({
+                ceka:e.target.value
+              })
+            }}/>
+            </Form.Group>
+                
+              <button className="odjavi" onClick={()=>{
+                 fetch('/incident_report/getincidentreports/'+incident.id)
+                 .then((response)=>response.json())
+                 .then((responseJson)=>{
+                  var o=Object.keys(responseJson).length
+                  var l=[]
+                  for( var i=0;i<o;i++){
+                     l.push(responseJson[i].report)
+                  }
+                  if(l.length===0){
+                    alert("Nema izvještaja")
+                  }
+                  else{
+                    alert(l)
+                  }
+                 
+                   
+                 })
+                 
+                }
+              }>Prkaži izvještaje</button>
+              
+              
+              <a href="/userpanel"><button className="odjavi" onClick={
+                ()=>{
+                  var inc={
+                    id:incident.id,
+                    service: incident.service,
+                    category:incident.category,
+                    description: global.that.state.ceka,
+                    priority: {
+                        id: 3,
+                        priority: "srednji"
+                    },
+                    sid:"ponovo prijavljen",
+                    report_date: incident.report_date,
+                    user: incident.user,
+                    handle_id: 2,
+                    escalated: incident.escalated
+                  }
+                
+                  fetch('/incident/'+incident.id,{
+                    method: "PUT",
+                    body: JSON.stringify(inc),  
+                    headers:{
+                      'Content-Type': 'application/json'
+                     }
+                
+                  }).then((response) => response.json())
+                  .then(
+                    (responseJson) => {
+                      
+                     
+                
+                    })
+                   
+                  
+                  
+                }
+              }>Prijavi ponovo</button></a>    
+          </div>
+            )
+
+          }
+          
+          if(incident.sid==="odbijen"){
+            var t=incident.description
+            return (
+  
+              <div className="prijavljeniincident">
+              <p className="naziv">IncidnetId:{incident.id}</p>
+              <p className="naziv">Usluga:{incident.service.service}</p>
+              <p className="naziv">Datum prijavljivanja: {date}</p>
+              <p className="naziv">Opis incidenta:</p>
+              <p className="naziv">{incident.description}</p>
+              <p className="naziv">Status: {incident.sid}</p>
+              <Form.Group controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Opis incidenta</Form.Label>
+              <Form.Control as="textarea" rows="5" onChange={(e)=>{
+              global.that.setState({
+                odbijen:e.target.value
+              })
+            }}/>
+            </Form.Group>
+                
+              <button className="odjavi" onClick={()=>{
+                 fetch('/incident_report/getincidentreports/'+incident.id)
+                 .then((response)=>response.json())
+                 .then((responseJson)=>{
+                  var o=Object.keys(responseJson).length
+                  var l=[]
+                  for( var i=0;i<o;i++){
+                     l.push(responseJson[i].report)
+                  }
+                  if(l.length===0){
+                    alert("Nema izvještaja")
+                  }
+                  else{
+                    alert(l)
+                  }
+                 
+                   
+                 })
+                 
+                }
+              }>Prkaži izvještaje</button>
+              
+              
+              <a href="/userpanel"><button className="odjavi" onClick={
+                ()=>{
+                  var inc={
+                    id:incident.id,
+                    service: incident.service,
+                    category:incident.category,
+                    description: global.that.state.odbijen,
+                    priority: {
+                        id: 3,
+                        priority: "srednji"
+                    },
+                    sid:"ponovo prijavljen",
+                    report_date: incident.report_date,
+                    user: incident.user,
+                    handle_id: 2,
+                    escalated: incident.escalated
+                  }
+                
+                  fetch('/incident/'+incident.id,{
+                    method: "PUT",
+                    body: JSON.stringify(inc),  
+                    headers:{
+                      'Content-Type': 'application/json'
+                     }
+                
+                  }).then((response) => response.json())
+                  .then(
+                    (responseJson) => {
+                      
+                     alert(JSON.stringify(responseJson))
+                
+                    })
+                   
+                  
+                  
+                }
+              }>Prijavi ponovo</button></a>        
+          </div>
+            )
+
+          }
+         
+            return (
+  
+            <div className="prijavljeniincident">
+            <p className="naziv">IncidnetId:{incident.id}</p>
+            <p className="naziv">Usluga:{incident.service.service}</p>
+            <p className="naziv">Datum prijavljivanja: {date}</p>
+            <p className="naziv">Opis incidenta:</p>
+            <p className="naziv">{incident.description}</p>
+            <p className="naziv">Status: {incident.sid}</p>
+              
+            <button className="odjavi" onClick={()=>{
+               fetch('/incident_report/getincidentreports/'+incident.id)
+               .then((response)=>response.json())
+               .then((responseJson)=>{
+                var o=Object.keys(responseJson).length
+                var l=[]
+                for( var i=0;i<o;i++){
+                   l.push(responseJson[i].report)
+                }
+                if(l.length===0){
+                  alert("Nema izvještaja")
+                }
+                else{
+                  alert(l)
+                }
+               
+                 
+               })
+               
+              }
+            }>Prkaži izvještaje</button>
+                
+        </div>
+          )
+
+          
+
+        
+          
+
+        })
+
+       
+
+       }
+     
+      
+      
+
+    ).then(()=>{
+      this.setState({
+        isLoading:false
+      })
     })
+
+    )
 
     
 
@@ -57,7 +301,7 @@ class HomePage extends Component {
       }
 
       var t_id=this.state.ids
-
+   
       var prijavljeneusluge = this.state.prijavljeneusluge.map(function(usluga){
         t_id[usluga.id-3]=0
         return(
@@ -100,6 +344,7 @@ class HomePage extends Component {
         
         
         });
+      
 
         var neprijavljeneusluge = this.state.neprijavljeneusluge.map(function(usluga){
           if(t_id[usluga.id-3]!=0){
@@ -141,7 +386,7 @@ class HomePage extends Component {
           }
           
           });
-
+     
     return (
       
       <div className="HomePage">
@@ -160,30 +405,7 @@ class HomePage extends Component {
 
         <div className="podnaslov"> Prijavljeni incidenti</div>
 
-        <div className="prijavljeniincident">
-            <p className="naziv">IncidnetId: 10</p>
-            <p className="naziv">Usluga: Održavanje web stranice</p>
-            <p className="naziv">Datum prijavljivanja: 20.5.2019</p>
-            <p className="naziv">Opis incidenta:</p>
-            <p className="naziv">Potrebno dodati novi broj telefona hotela</p>
-            <p className="naziv">Status: Rješen</p>
-            <p className="naziv">Odgovor:</p>
-            <p className="naziv">Dodan novi broj telefona hotela</p>
-
-            
-        </div>
-
-        <div className="prijavljeniincident">
-            <p className="naziv">IncidnetId: 12</p>
-            <p className="naziv">Usluga: Sistem za rezervacije</p>
-            <p className="naziv">Datum prijavljivanja: 25.5.2019</p>
-            <p className="naziv">Opis incidenta:</p>
-            <p className="naziv">Ne radi</p>
-            <p className="naziv">Status: Odbijen</p>
-            <p className="naziv">Odgovor:</p>
-            <p className="naziv">Nedovoljo jasan opis incidenta</p>
-            
-        </div>
+        {global.incidenti}
         
 
         <div className="body">

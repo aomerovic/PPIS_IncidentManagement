@@ -10,6 +10,8 @@ import com.incidentmng.incidentmng.model.Services_Users;
 import com.incidentmng.incidentmng.model.User;
 import com.incidentmng.incidentmng.service.IncidentService;
 import com.incidentmng.incidentmng.service.Services_UsersService;
+import com.incidentmng.incidentmng.service.UserService;
+
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,7 @@ public class IncidentController {
 
     private IncidentService incidentService;
     private Services_UsersService services_usersService;
+    private UserService userService;
 
     @Autowired
     public IncidentController(IncidentService incidentService, Services_UsersService services_usersService) {
