@@ -75,7 +75,9 @@ class HomePage extends Component {
             <p className="naziv">Opis incidenta:</p>
             <p className="naziv">{incident.description}</p>
         
-            <button className="incident" onClick={() => {this.setState(
+            <button className="incident" onClick={() => {
+              localStorage.setItem('iid',incident.id)
+              that.setState(
                                                                         {
                                                                           redirect:true,
                                                                           id:1
@@ -104,8 +106,11 @@ class HomePage extends Component {
               }
             }>
               <option>prijavljen</option>
-              <option>aktivan</option>    
+              <option>aktivan</option>
+              <option>riješen</option>
+              <option>prosljeđen</option>
               <option>ponovo prijavljen</option>
+              <option>ceka potvrdu</option>
               <option>odbijen</option>
             </Form.Control>
         </Form.Group>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavBar from '../NavBarWorker/NavBar';
+import NavBar from '../NavBarManager/NavBar';
 import {Redirect} from 'react-router-dom';
 import { Form} from 'react-bootstrap';
 import './HomePage.css';
@@ -12,7 +12,9 @@ class HomePage extends Component {
 
       this.state = {
         redirect: false,
-        id:0
+        id:0,
+        isLoading:true,
+        incidenti:[],
       };
       this.vise = this.vise.bind(this)
   }
@@ -22,9 +24,23 @@ class HomePage extends Component {
     this.setState(
       ()=>({
         redirect:true,
-        id:r
+        id:r,
+    
       })
     )
+  }
+
+  componentDidMount(){
+    fetch('/incident')
+    .then((response) => response.json())
+    .then((responseJson) => {
+    this.setState({
+    incidenti:responseJson,
+    select:"prijavljen",
+    isLoading:false
+    }
+    )
+    })
   }
 
 
@@ -32,10 +48,47 @@ class HomePage extends Component {
     if(localStorage.getItem('role')!=="uposleni"){
       return <Redirect to="/login"></Redirect>
     }
-
+    if(this.state.isLoading){
+      return(
+      <div>Loading</div>
+      )
+      }
     if(this.state.redirect === true){
       return <Redirect to="/pregledincidentauposleni"></Redirect>
     }
+    var that=this  
+    var incidenti=this.state.incidenti.map(function(incident){
+      var date=incident.report_date
+          
+      date = date.substring(0,10); 
+      if(incident.sid===that.state.select && incident.handle_id===1){
+        return(
+
+          <div className="prijavljeniincident">
+            <p className="naziv">IncidnetId:{incident.id}</p>
+            <p className="naziv">Usluga:{incident.service.service}</p>
+            <p className="naziv">Prjavio: {incident.user.first_name} {incident.user.last_name},{incident.user.username}</p>
+            <p className="naziv">Datum prijavljivanja: {date}</p>
+            <p className="naziv">Status: {incident.sid}</p>
+            <p className="naziv">Prioritet: {incident.priority.priority}</p>
+            <p className="naziv">Kategorija: {incident.category.category}</p>
+            <p className="naziv">Opis incidenta:</p>
+            <p className="naziv">{incident.description}</p>
+        
+            <button className="incident" onClick={() => {
+              localStorage.setItem('iid',incident.id)
+              that.setState(
+                                                                        {
+                                                                          redirect:true,
+                                                                          id:1
+                                                                        })
+                                                         }
+                                                    }>Više</button>  
+          </div>
+
+        )
+      }
+    })
 
     return (
       
@@ -45,29 +98,25 @@ class HomePage extends Component {
         <div className="naslov"> Pregled incidenata</div>
         <Form.Group controlId="exampleForm.ControlSelect1" className="select">
           <Form.Label> </Form.Label>
-            <Form.Control as="select">
-              <option>prijavljeni</option>
-              <option>aktivni</option>    
+            <Form.Control as="select" onChange={
+              (e)=>{
+                this.setState({
+                  select:e.target.value
+                })
+              }
+            }>
+              <option>prijavljen</option>
+              <option>aktivan</option>
+              <option>riješen</option>
+              <option>prosljeđen</option>
+              <option>ponovo prijavljen</option>
+              <option>ceka potvrdu</option>
+              <option>odbijen</option>
             </Form.Control>
         </Form.Group>
 
-        <div className="prijavljeniincident">
-            <p className="naziv">IncidnetId: 10</p>
-            <p className="naziv">Usluga: Održavanje web stranice</p>
-            <p className="naziv">Datum prijavljivanja: 20.5.2019</p>
-            <p className="naziv">Prjavio: username, Ime Prezime</p>
-            <p className="naziv">Prioritet: srednji</p>
-            <p className="naziv">Kategorija: incident</p>
-            <p className="naziv">Status: prijavljen</p>
-            <button className="incident" onClick={() => {this.setState(
-                                                                        {
-                                                                          redirect:true,
-                                                                          id:1
-                                                                        })
-                                                         }
-                                                    }>Više</button>  
-          </div>
-
+        
+        {incidenti}
           
 
         <div className="body">          

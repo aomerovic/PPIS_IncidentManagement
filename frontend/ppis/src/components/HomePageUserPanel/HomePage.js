@@ -58,7 +58,11 @@ class HomePage extends Component {
           var date=incident.report_date
           
           date = date.substring(0,10);   
-
+          if(incident.sid==="riješen"){
+            return(
+              ""
+            )
+          }  
           if(incident.sid==="ceka potvrdu"){
             return (
   
@@ -137,7 +141,44 @@ class HomePage extends Component {
                   
                   
                 }
-              }>Prijavi ponovo</button></a>    
+              }>Prijavi ponovo</button></a>
+              <a href="/userpanel"><button className="odjavi" onClick={
+                ()=>{
+                  var inc={
+                    id:incident.id,
+                    service: incident.service,
+                    category:incident.category,
+                    description: incident.description,
+                    priority: {
+                        id: 3,
+                        priority: "srednji"
+                    },
+                    sid:"riješen",
+                    report_date: incident.report_date,
+                    user: incident.user,
+                    handle_id: 2,
+                    escalated: incident.escalated
+                  }
+                
+                  fetch('/incident/'+incident.id,{
+                    method: "PUT",
+                    body: JSON.stringify(inc),  
+                    headers:{
+                      'Content-Type': 'application/json'
+                     }
+                
+                  }).then((response) => response.json())
+                  .then(
+                    (responseJson) => {
+                      
+                     
+                
+                    })
+                   
+                  
+                  
+                }
+              }>Potvrdi</button></a>    
           </div>
             )
 
