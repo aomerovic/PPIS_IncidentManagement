@@ -13,7 +13,7 @@ render(){
       <Navbar.Collapse id="basic-navbar-nav">
        <Nav className="mr-auto"></Nav>
       
-        <Nav.Link href="/incidentmanageradmin"><p className="textlink">Pregled incidenata</p> </Nav.Link>
+        <Nav.Link href="/uposleni"><p className="textlink">Pregled incidenata</p> </Nav.Link>
         
         <Nav.Link href="/login"><p className="textlink">Logout</p> </Nav.Link>
        

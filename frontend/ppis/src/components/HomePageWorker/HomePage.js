@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavBar from '../NavBarManager/NavBar';
+import NavBar from '../NavBarWorker/NavBar';
 import {Redirect} from 'react-router-dom';
 import { Form} from 'react-bootstrap';
 import './HomePage.css';

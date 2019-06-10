@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavBar from '../NavBarManager/NavBar';
+import NavBar from '../NavBarWorker/NavBar';
 import { Form} from 'react-bootstrap';
 import './PregledIncidenta.css';
 import {Redirect} from 'react-router-dom';
