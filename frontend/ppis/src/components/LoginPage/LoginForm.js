@@ -69,6 +69,9 @@ componentDidMount(){
       if(global.role==="user"){
         return <Redirect to="/pregledusluga"></Redirect>
       }
+      if(global.role==="uposleni"){
+        return <Redirect to="/pregledusluga"></Redirect>
+      }
       return <Redirect to="/incidentmanageradmin"></Redirect>
     }
 
